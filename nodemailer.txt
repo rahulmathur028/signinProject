@@ -1,0 +1,48 @@
+router.post("/forgot-password", function (req, res, next) {
+    User.findOne({ email: req.body.email })
+        .then((user) => {
+            if (!user)
+                return res.render("forget", {
+                    title: "Forget Password",
+                    message: "No User Found, invalid email!",
+                });
+
+            // code to send email
+            // req.protocol + "://" + req.get("host") + req.originalUrl;
+            const pageurl =
+                req.protocol +
+                "://" +
+                req.get("host") +
+                "/change-password/" +
+                user._id;
+            // -------------------Nodemailer starts----------------------
+            const transport = nodemailer.createTransport({
+                service: "gmail",
+                host: "smtp.gmail.com",
+                port: 465,
+                auth: {
+                    user: "dhanesh1296@gmail.com",
+                    pass: "tmquwhokrbyetoke",
+                },
+            });
+
+            const mailOptions = {
+                from: "Dhanesh Pvt. Ltd.<dhanesh1296@gmail.com>",
+                to: req.body.email,
+                subject: "Password Reset Link",
+                text: "Do not share this link to anyone.",
+                html: `<a href=${pageurl}>Password Reset Link</a>`,
+            };
+
+            transport.sendMail(mailOptions, (err, info) => {
+                if (err) return res.send(err);
+                console.log(info);
+                user.passwordResetToken = 1;
+                user.save();
+                return res.send(
+                    "<h1 style='text-align:center;color: tomato; margin-top:10%'><span style='font-size:60px;'>✔️</span> <br />Email Sent! Check your inbox , <br/>check spam in case not found in inbox.</h1>"
+                );
+            });
+        })
+        .catch((err) => res.send(err));
+});

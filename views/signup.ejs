@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>User 👤 | <%= title %></title>
+        <link rel="stylesheet" href="/stylesheets/style.css" />
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+            crossorigin="anonymous"
+        />
+    </head>
+    <body>
+        <form
+            action="/signupuser"
+            method="POST"
+            class="container mt-5 text-center p-5 w-50"
+        >
+            <h3 class="fw-lighter mb-3">Signup User</h3>
+            <input
+                type="text"
+                class="form-control m-auto w-75 p-2 mb-4"
+                placeholder="username"
+                name="username"
+            />
+            <input
+                type="email"
+                class="form-control m-auto w-75 p-2 mb-4"
+                placeholder="enter@email.com"
+                name="email"
+            />
+            <input
+                type="password"
+                class="form-control m-auto w-75 p-2 mb-4"
+                placeholder="********"
+                name="password"
+            />
+            <button class="p-2 btn btn-primary w-75 mb-4">Signup User</button>
+            <p>Already have an account ? <a href="/signin">Sign in</a></p>
+            <a href="/">home</a>
+        </form>
+    </body>
+</html>
